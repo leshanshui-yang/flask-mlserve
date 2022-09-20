@@ -12,4 +12,4 @@ COPY . /app
 WORKDIR /app
 
 EXPOSE 8080
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "serve_api"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "serve"]
