@@ -31,11 +31,10 @@ def raw():
     df = mlflow.search_runs()
     best_exp = df.loc[df[ml_metric].idxmax()]
     run_id = best_exp['run_id']
-    print(run_id)
-    print("Best Model:", run_id) ## test1
+    logger.info("DF:"+str(df)) ##
     logger.info("Best Model:"+str(run_id)) ##
     logged_model = 'runs:/6ab063106f5648afafd37e53960c9349/pytorch-model'
-    loaded_model = mlflow.pytorch.load_model(logged_model).to(device)
+    loaded_model = mlflow.pytorch.load_model(logged_model)#.to(device) # No Choice
     logger.info(str(dir(loaded_model)))
     
     return jsonify({'response': response}), 201
@@ -44,7 +43,7 @@ def raw():
 @application.route('/')
 def index():
     logger.info('Visited index page')
-    return jsonify({'response': "index page"+str(run_id)}), 201
+    return jsonify({'response': "index page"}), 201
 
 
 if __name__ == '__main__':
