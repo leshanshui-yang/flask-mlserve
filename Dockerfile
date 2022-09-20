@@ -2,8 +2,8 @@ FROM python:3.7.11-stretch
 
 RUN pip install --upgrade pip
 RUN pip install mlflow==1.20.2
-RUN pip install numpy pandas torch
-RUN pip install Flask flask-restplus Flask-SSLify Flask-Admin gunicorn
+RUN pip install numpy pandas torch pyarrow
+RUN pip install Flask flask-restplus Flask-SSLify Flask-Admin gunicorn  
 ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 
 USER root
