@@ -27,6 +27,7 @@ def raw():
     ml_exp = '[Pipeline IMDB] Training'
     # Requesting 1 best model
     mlflow.set_tracking_uri(mlflow_url)
+    mlflow.set_registry_uri(mlflow_url)
     mlflow.set_experiment(ml_exp)
     df = mlflow.search_runs()
     best_exp = df.loc[df[ml_metric].idxmax()]
