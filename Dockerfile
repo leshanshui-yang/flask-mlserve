@@ -4,6 +4,7 @@ RUN pip install --upgrade pip
 RUN pip install mlflow==1.20.2
 RUN pip install numpy pandas
 RUN pip install Flask flask-restplus Flask-SSLify Flask-Admin gunicorn
+ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends curl
