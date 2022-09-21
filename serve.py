@@ -89,6 +89,7 @@ def deploy():
     metric = request.json['metric']
     model_name = request.json['model_name']
     resp = deploy_model(exp, metric, model_name)
+    logger.info(resp)
     return jsonify({'response': resp}), 201
 
 
@@ -103,6 +104,7 @@ def remove():
     model_name = request.json['model_name']
     del models[request.json['model_name']]
     resp = "Model %s removed successfully. Currently deployed models are: %s"%(model_name, ' '.join(list(models.keys())))
+    logger.info(resp)
     return jsonify({'response': resp}), 201
 
 
@@ -117,8 +119,10 @@ def predict():
     logger.info('-- PREDICT function called --')
     decoded = json.loads(request.json)
     pred_output = call_model(np.asarray(decoded["data"]), models[decoded["model"]][0])
+    logger.info(str(pred_output))
     return jsonify({'response': pred_output}), 201
 
 
 if __name__ == '__main__':
     application.run(host='0.0.0.0', port=8080)
+    
