@@ -51,9 +51,10 @@ def deploy_model(ml_exp:str, ml_metric:str, model_name:str) -> str:
     
     
 def call_model(input_data, model):
-    preds = model(*input_data)
-    return np.argmax(preds["logits"].cpu().numpy(), axis=1) # turn one-hot prediction score to class
-
+    with torch.no_grad():
+        model.eval()
+        preds = model(*input_data)
+    return np.argmax(preds["logits"].cpu().detach().numpy(), axis=1) # turn one-hot prediction score to class
 
 
 
