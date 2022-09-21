@@ -117,12 +117,14 @@ def predict():
     or not 'data' in request.json:
         abort(400)
     logger.info('-- PREDICT function called --')
-    decoded = json.loads(request.json)
-    pred_output = call_model(np.asarray(decoded["data"]), models[decoded["model"]][0])
+    model = request.json['model']
+    data = request.json['data']
+    data = [torch.from_numpy(np.asarray(d)) for d in data]
+    # decoded = json.loads(request.json)
+    pred_output = call_model(data, models[model][0])
     logger.info(str(pred_output))
     return jsonify({'response': pred_output}), 201
 
 
 if __name__ == '__main__':
     application.run(host='0.0.0.0', port=8080)
-    
