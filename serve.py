@@ -1,16 +1,21 @@
 import os
+import numpy as np
+import torch
+import mlflow
+
 import warnings, logging
 import subprocess
 import requests
+
 from flask import Flask, jsonify, request
 from flask import current_app, abort, Response
-import mlflow
 
 
 logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 application = Flask(__name__)
 
+device = torch.device('cpu')
 
 @application.route('/raw', methods=['POST'])
 def raw():
@@ -35,7 +40,7 @@ def raw():
     logger.info("DF:"+str(df)) ##
     logger.info("Best Model:"+str(run_id)) ##
     logged_model = 'runs:/6ab063106f5648afafd37e53960c9349/pytorch-model'
-    loaded_model = mlflow.pytorch.load_model(logged_model)#.to(device) # No Choice
+    loaded_model = mlflow.pytorch.load_model(logged_model).to(device) # No Choice
     logger.info(str(dir(loaded_model)))
     
     return jsonify({'response': response}), 201
