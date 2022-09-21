@@ -124,7 +124,7 @@ def predict():
     # decoded = json.loads(request.json)
     pred_output = call_model(data, models[model][0])
     logger.info(str(pred_output))
-    return jsonify({'response': pred_output}), 201
+    return jsonify({'response': str(pred_output)}), 201
 
 
 if __name__ == '__main__':
