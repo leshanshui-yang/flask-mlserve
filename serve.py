@@ -90,7 +90,7 @@ def deploy():
     metric = request.json['metric']
     model_name = request.json['model_name']
     resp = deploy_model(exp, metric, model_name)
-    logger.info(resp)
+    # logger.info(resp)
     return jsonify({'response': resp}), 201
 
 
@@ -105,7 +105,7 @@ def remove():
     model_name = request.json['model_name']
     del models[request.json['model_name']]
     resp = "Model %s removed successfully. Currently deployed models are: %s"%(model_name, ' '.join(list(models.keys())))
-    logger.info(resp)
+    # logger.info(resp)
     return jsonify({'response': resp}), 201
 
 
@@ -123,7 +123,7 @@ def predict():
     data = [torch.from_numpy(np.asarray(d)) for d in data]
     # decoded = json.loads(request.json)
     pred_output = call_model(data, models[model][0])
-    logger.info(str(pred_output))
+    # logger.info(str(pred_output))
     return jsonify({'response': str(pred_output)}), 201
 
 
